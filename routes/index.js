@@ -2,14 +2,14 @@ const router = require('express').Router();
 const controller = require('../controllers');
 
 router.get('/', function (req, res) {
-    res.send('Hello World!')
-  });
+    controller.helloWorld(req, res);
+});
 
 router.post('/user', (req, res) => {
     controller.createUser(req, res);
 });
 
-router.post('/login', (req, res) => {
+router.get('/login', (req, res) => {
     controller.login(req, res);
 });
 
