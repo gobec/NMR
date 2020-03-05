@@ -1,6 +1,7 @@
 function helloWorld(req, res){
+    var token = null;
     if (req.header('Authorization')) {
-        const token = req.header('Authorization').replace('Bearer ', '');
+        token = req.header('Authorization').replace('Bearer ', '');
     }
     const jwt = require('jsonwebtoken');
     require('dotenv').config();
@@ -43,7 +44,6 @@ function login(req, res) {
             if (err) throw err;
             if (isMatch) {
                 const jwt = require('jsonwebtoken');
-                console.log(process.env.JWT_SECRET);
                 const token = jwt.sign({ _id: user._id, admin: true }, process.env.JWT_SECRET, { expiresIn: '1 week' });
                 res.json({info: 'Success', token: token});
             }
