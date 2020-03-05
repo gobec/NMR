@@ -14,4 +14,25 @@ function createUser(req, res) {
     });
 }
 
+function login(req, res) {
+    const User = require('./../models/user');
+
+    // find user
+    User.findOne({ email: req.body.email }, function(err, user) {
+        if (err) throw err;
+
+        // test password
+        user.comparePassword(req.body.password, function(err, isMatch) {
+            if (err) throw err;
+            if (isMatch) {
+                res.json({info: 'Success'});
+            }
+            else {
+                res.json({info: 'Failure'});
+            } 
+        });
+    });
+};
+
 module.exports.createUser = createUser;
+module.exports.login = login;
